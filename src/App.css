@@ -1,0 +1,50 @@
+*{ 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+
+ ul li {
+  list-style-type: none;
+ }
+
+ ul{
+  padding-left: 0;
+ }
+
+ p{
+  margin-bottom: 0;
+ }
+
+.App {
+  background: radial-gradient(circle , #00ff8c, #30a8e4);
+  padding: 32px;
+  height: 100vh;
+
+}
+
+.TodoApp{
+  padding: 16px 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  max-width: 1024px;
+  margin: auto;
+}
+
+
+.tasklist li{
+  margin-bottom: 16px;
+  padding: 8px 6px;
+  background-color: #eee;
+}
+
+
+.btn-primary{
+  background-color: #6f42c1 !important;
+  border: #6f42c1;
+}
+
+.completed{
+  text-decoration: line-through;
+  color: #8f8e8e;
+}

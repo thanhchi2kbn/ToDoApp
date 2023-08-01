@@ -1,0 +1,22 @@
+{
+  "todo": [
+    {
+      "id": 1,
+      "text": "Study ReactJS",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "text": "Study Python for AI",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "text": "Play Valorant to Radiant",
+      "completed": false
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
