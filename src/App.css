@@ -48,3 +48,14 @@
   text-decoration: line-through;
   color: #8f8e8e;
 }
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  padding: 32px;
+  box-shadow: 10px 10px 10px  #888888;
+  border-radius: 16px;
+}
