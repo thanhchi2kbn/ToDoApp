@@ -8,7 +8,7 @@ const ModalConfirm = ({ show, onClose, onConfirm, message }) => {
       <div className="modal-content">
         <h3>Confirm</h3>
         <p>{message}</p>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end mt">
           <button onClick={onConfirm} className='btn btn-danger me-1'>
             Yes
           </button>

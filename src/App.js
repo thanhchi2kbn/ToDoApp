@@ -8,22 +8,20 @@ function App() {
   const [initialTodos, setInitialTodos] = useState([]);
   const [todos, setTodos] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const storedTodos = localStorage.getItem('todos')  
+  const [currentPage, setCurrentPage] = useState(1);
+  const todosPerPage = 5;
+  const storedTodos = localStorage.getItem('todos');
 
-  useEffect(()=>{
-    if (storedTodos){
+  useEffect(() => {
+    if (storedTodos) {
       setInitialTodos(JSON.parse(storedTodos));
       setTodos(JSON.parse(storedTodos));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
-  
-  
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
-
 
   const addTodo = (todo) => {
     setInitialTodos([...initialTodos, todo]);
@@ -43,18 +41,18 @@ function App() {
     const newTodos = [...todos];
     newTodos[index].completed = !newTodos[index].completed;
     setTodos(newTodos);
-    setInitialTodos(newTodos)
+    setInitialTodos(newTodos);
   };
 
   const clearAll = () => {
     const filteredTodos = todos.filter((todo) => todo.completed);
     setTodos(filteredTodos);
-    setInitialTodos(filteredTodos)
+    setInitialTodos(filteredTodos);
   };
 
   const handleSearchTextChange = (text) => {
     setSearchText(text);
-
+    setCurrentPage(1); // Reset trang về trang đầu tiên khi tìm kiếm
   };
 
   const handleSearch = () => {
@@ -62,19 +60,28 @@ function App() {
       todo.text.toLowerCase().includes(searchText.toLowerCase())
     );
     if (searchText.length === 0) {
-      setTodos([...initialTodos]); // Không tìm thấy kết quả, hiển thị lại danh sách ban đầu
+      setTodos([...initialTodos]);
     } else {
-      setTodos(filteredTodos); // Tìm thấy kết quả, hiển thị danh sách lọc
+      setTodos(filteredTodos);
     }
+    setCurrentPage(1); // Reset trang về trang đầu tiên sau khi tìm kiếm
   };
 
-  
   const handleEditTodo = (index, editedTodo) => {
     const newTodos = [...todos];
     newTodos[index] = editedTodo;
     setTodos(newTodos);
-    setInitialTodos(newTodos)
+    setInitialTodos(newTodos);
   };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Tính chỉ số todo bắt đầu và kết thúc của trang hiện tại
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
   return (
     <div className='App'>
@@ -86,8 +93,26 @@ function App() {
           handleSearch={handleSearch}
           searchText={searchText}
         />
-        <TodoLish todos={todos} deleteTodo={deleteTodo} toggleCompleted={toggleCompleted} handleEditTodo = {handleEditTodo }/>
+        <TodoLish
+          todos={currentTodos}
+          deleteTodo={deleteTodo}
+          toggleCompleted={toggleCompleted}
+          handleEditTodo={handleEditTodo}
+        />
         <TodoNotify todos={todos} clearAll={clearAll} />
+
+        {/* Phân trang */}
+        <div className='pagination d-flex justify-content-center mt-3'>
+          {Array.from({ length: Math.ceil(todos.length / todosPerPage) }, (_, index) => (
+            <button
+              key={index}
+              className={`btn btn-secondary me-1 ${currentPage === index + 1 ? 'active' : ''}`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ export default function TodoItem({ todo, index, deleteTodo, toggleCompleted, han
         show={showDeleteModal}
         onClose={handleCloseModal}
         onConfirm={handleDeleteConfirmed}
-        message="Are you sure you want to delete this todo?"
+        message="Are you sure you want to delete?"
       />
     </div>
   );
