@@ -11,7 +11,9 @@ export default function TodoItem({ todo, index, deleteTodo, toggleCompleted, han
   };
 
   const handleEdit = () => {
-    setEditing(true);
+    console.log(todo.text)
+    setEditedText(todo.text);
+    setEditing(true); 
   };
 
   const handleSave = () => {
