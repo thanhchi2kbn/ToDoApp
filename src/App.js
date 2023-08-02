@@ -34,12 +34,16 @@ function App() {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
+
+    initialTodos.splice(index, 1);
+    setInitialTodos(newTodos);
   };
 
   const toggleCompleted = (index) => {
     const newTodos = [...todos];
     newTodos[index].completed = !newTodos[index].completed;
     setTodos(newTodos);
+    setInitialTodos(newTodos)
   };
 
   const clearAll = () => {
@@ -69,6 +73,7 @@ function App() {
     const newTodos = [...todos];
     newTodos[index] = editedTodo;
     setTodos(newTodos);
+    setInitialTodos(newTodos)
   };
 
   return (
