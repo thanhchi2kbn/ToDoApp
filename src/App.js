@@ -98,6 +98,8 @@ function App() {
           deleteTodo={deleteTodo}
           toggleCompleted={toggleCompleted}
           handleEditTodo={handleEditTodo}
+          currentPage={currentPage} // Truyền currentPage vào TodoLish
+          todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoLish
         />
         <TodoNotify todos={todos} clearAll={clearAll} />
 

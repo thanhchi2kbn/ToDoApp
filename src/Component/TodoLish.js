@@ -1,7 +1,8 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-export default function TodoLish({ todos, deleteTodo, toggleCompleted,handleEditTodo }) {
+export default function TodoLish({ todos, deleteTodo, toggleCompleted,handleEditTodo,currentPage,todosPerPage }) {
+  const indexOfFirstTodo = (currentPage - 1) * todosPerPage;
  
   
   return (
@@ -11,7 +12,7 @@ export default function TodoLish({ todos, deleteTodo, toggleCompleted,handleEdit
           <TodoItem
             key={index}
             todo={todo}
-            index={index}
+            index={index + indexOfFirstTodo}
             deleteTodo={deleteTodo}
             toggleCompleted={toggleCompleted}
             handleEditTodo={handleEditTodo}
