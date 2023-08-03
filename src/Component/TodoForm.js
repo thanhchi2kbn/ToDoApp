@@ -20,7 +20,6 @@ export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextC
 
   const handleClearSearch = () => {
     handleSearchTextChange(''); // Xoá giá trị trong ô tìm kiếm
-    handleSearch(); // Hiển thị danh sách todo ban đầu
   };
 
   return (
