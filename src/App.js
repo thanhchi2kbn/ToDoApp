@@ -18,6 +18,7 @@ function App() {
       setInitialTodos(JSON.parse(storedTodos));
       setTodos(JSON.parse(storedTodos));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -139,7 +140,7 @@ function App() {
 
         {/* Phân trang */}
         <div className='pagination d-flex justify-content-center mt-3'>
-          {Array.from({ length: Math.ceil(todos.length / todosPerPage) }, (_, index) => (
+          {Array.from({ length: Math.ceil(initialTodos.length / todosPerPage) }, (_, index) => (
             <button
               key={index}
               className={`btn btn-secondary me-1 ${currentPage === index + 1 ? 'active' : ''}`}
