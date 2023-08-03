@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function TodoNotify({ todos, clearAll }) {
-  const pendingTasks = todos.filter((todo) => !todo.completed).length;
+export default function TodoNotify({ initialTodos, clearAll }) {
+  const pendingTasks = initialTodos.filter((todo) => !todo.completed).length;
   return (
     <div className='notify d-flex justify-content-between mt-4'>
       <p>

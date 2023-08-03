@@ -135,7 +135,7 @@ function App() {
         <TodoFilter 
           handleFilter={handleFilter}
           />
-        <TodoNotify todos={todos} clearAll={clearAll} />
+        <TodoNotify initialTodos={initialTodos} clearAll={clearAll} />
 
         {/* Phân trang */}
         <div className='pagination d-flex justify-content-center mt-3'>
