@@ -3,7 +3,7 @@ import React from 'react';
 export default function TodoNotify({ todos, clearAll }) {
   const pendingTasks = todos.filter((todo) => !todo.completed).length;
   return (
-    <div className='notify d-flex justify-content-between mt-5'>
+    <div className='notify d-flex justify-content-between mt-4'>
       <p>
         You have {pendingTasks} pending tasks
       </p>

@@ -3,6 +3,7 @@ import './App.css';
 import TodoForm from './Component/TodoForm';
 import TodoLish from './Component/TodoLish';
 import TodoNotify from './Component/TodoNotify';
+import TodoFilter from './Component/TodoFilter';
 
 function App() {
   const [initialTodos, setInitialTodos] = useState([]);
@@ -83,6 +84,35 @@ function App() {
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
+  const handleFilter = (filterType) => {
+    switch (filterType) {
+      case 'completed':
+        const completedTodos = initialTodos.filter((todo) => todo.completed);
+        if (completedTodos.length === 0) {
+          setTodos([...initialTodos]);
+        } else {
+          setTodos(completedTodos);
+        }
+        break;
+
+      case 'pending':
+        const pendingTodos = initialTodos.filter((todo) => !todo.completed);
+        if (pendingTodos.length === 0) {
+          setTodos([...initialTodos]);
+        } else {
+          setTodos(pendingTodos);
+        }
+        break;
+        
+      case 'all':
+        setTodos([...initialTodos]);
+        break;
+      default:
+        break;
+    }
+  };
+  
+
   return (
     <div className='App'>
       <div className='TodoApp'>
@@ -101,6 +131,10 @@ function App() {
           currentPage={currentPage} // Truyền currentPage vào TodoLish
           todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoLish
         />
+
+        <TodoFilter 
+          handleFilter={handleFilter}
+          />
         <TodoNotify todos={todos} clearAll={clearAll} />
 
         {/* Phân trang */}
