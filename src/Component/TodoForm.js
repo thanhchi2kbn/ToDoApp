@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextChange,handleSearch,searchText }) {
+export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextChange, handleSearch, searchText }) {
   const [text, setText] = useState('');
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextC
 
       {/* Search field */}
       <div className="col-12 col-md-6 mt-3 mb-3 d-flex">
-        <input type="text" className="form-control" placeholder='Search todo' onChange={(e) => handleSearchTextChange(e.target.value)} value={searchText}/>
+        <input type="text" className="form-control me-2" placeholder='Search todo' onChange={(e) => handleSearchTextChange(e.target.value)} value={searchText}/>
         <button type="button" className="btn btn-primary " onClick={handleSearch}>Search</button>
         <button type="button" className="btn btn-secondary ms-2" onClick={handleClearSearch}>Clear</button>
       </div>

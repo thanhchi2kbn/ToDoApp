@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import TodoForm from './Component/TodoForm';
-import TodoLish from './Component/TodoLish';
+import TodoList from './Component/TodoList';
 import TodoNotify from './Component/TodoNotify';
 import TodoFilter from './Component/TodoFilter';
 
@@ -30,6 +30,14 @@ function App() {
     setTodos([...todos, todo]);
   };
 
+  useEffect(() => {
+    // Nếu không có todo nào trong danh sách, set lại currentPage về 1
+    if (todos.length % 5 === 0) {
+      setCurrentPage(todos.length/5);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todos]);
+
   const deleteTodo = (index) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
@@ -37,6 +45,8 @@ function App() {
 
     initialTodos.splice(index, 1);
     setInitialTodos(newTodos);
+    console.log(todos.length)
+    console.log(currentPage)
   };
 
   const toggleCompleted = (index) => {
@@ -50,6 +60,7 @@ function App() {
     const filteredTodos = todos.filter((todo) => todo.completed);
     setTodos(filteredTodos);
     setInitialTodos(filteredTodos);
+    setCurrentPage(1);
   };
 
   const handleSearchTextChange = (text) => {
@@ -90,7 +101,7 @@ function App() {
       case 'completed':
         const completedTodos = initialTodos.filter((todo) => todo.completed);
         if (completedTodos.length === 0) {
-          setTodos([...initialTodos]);
+          setTodos([]);
         } else {
           setTodos(completedTodos);
         }
@@ -99,7 +110,7 @@ function App() {
       case 'pending':
         const pendingTodos = initialTodos.filter((todo) => !todo.completed);
         if (pendingTodos.length === 0) {
-          setTodos([...initialTodos]);
+          setTodos([]);
         } else {
           setTodos(pendingTodos);
         }
@@ -124,13 +135,15 @@ function App() {
           handleSearch={handleSearch}
           searchText={searchText}
         />
-        <TodoLish
+        <TodoList
           todos={currentTodos}
           deleteTodo={deleteTodo}
           toggleCompleted={toggleCompleted}
           handleEditTodo={handleEditTodo}
-          currentPage={currentPage} // Truyền currentPage vào TodoLish
-          todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoLish
+          currentPage={currentPage} // Truyền currentPage vào TodoList
+          todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoList
+          handlePageChange={handlePageChange}
+          initialTodos={initialTodos}
         />
 
         <TodoFilter 
@@ -138,18 +151,7 @@ function App() {
           />
         <TodoNotify initialTodos={initialTodos} clearAll={clearAll} />
 
-        {/* Phân trang */}
-        <div className='pagination d-flex justify-content-center mt-3'>
-          {Array.from({ length: Math.ceil(initialTodos.length / todosPerPage) }, (_, index) => (
-            <button
-              key={index}
-              className={`btn btn-secondary me-1 ${currentPage === index + 1 ? 'active' : ''}`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+
       </div>
     </div>
   );
