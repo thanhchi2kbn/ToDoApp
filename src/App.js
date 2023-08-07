@@ -25,7 +25,7 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (todo) => {
+  const handleAddTodo = (todo) => {
     setInitialTodos([...initialTodos, todo]);
     setTodos([...todos, todo]);
   };
@@ -38,7 +38,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
 
-  const deleteTodo = (index) => {
+  const handleDeleteTodo = (index) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
@@ -49,7 +49,7 @@ function App() {
     console.log(currentPage)
   };
 
-  const toggleCompleted = (index) => {
+  const handleToggleCompleted = (index) => {
     const newTodos = [...todos];
     newTodos[index].completed = !newTodos[index].completed;
     setTodos(newTodos);
@@ -127,18 +127,18 @@ function App() {
 
   return (
     <div className='App'>
-      <div className='TodoApp'>
+      <div className='todo-app'>
         <h1 className='text-center'>Todo App</h1>
         <TodoForm
-          addTodo={addTodo}
+          handleAddTodo={handleAddTodo}
           handleSearchTextChange={handleSearchTextChange}
           handleSearch={handleSearch}
           searchText={searchText}
         />
         <TodoList
           todos={currentTodos}
-          deleteTodo={deleteTodo}
-          toggleCompleted={toggleCompleted}
+          handleDeleteTodo={handleDeleteTodo}
+          handleToggleCompleted={handleToggleCompleted}
           handleEditTodo={handleEditTodo}
           currentPage={currentPage} // Truyền currentPage vào TodoList
           todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoList

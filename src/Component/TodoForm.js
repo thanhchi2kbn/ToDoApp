@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextChange, handleSearch, searchText }) {
+export default function TodoForm({ handleAddTodo, clearAllCompleted, handleSearchTextChange, handleSearch, searchText }) {
   const [text, setText] = useState('');
 
   const handleChange = (e) => {
@@ -10,7 +10,7 @@ export default function TodoForm({ addTodo, clearAllCompleted, handleSearchTextC
   const handleSubmit = (event) => {
     event.preventDefault();
     if (text.trim() !== '') {
-      addTodo({
+      handleAddTodo({
         text,
         completed: false,
       });

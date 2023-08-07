@@ -29,7 +29,7 @@
 
 }
 
-.TodoApp{
+.todo-app{
   padding: 16px 20px;
   background-color: #fff;
   border-radius: 16px;
@@ -38,7 +38,7 @@
 }
 
 
-.tasklist li{
+.task-list li{
   margin-bottom: 16px;
   padding: 8px 6px;
   background-color: #eee;
@@ -71,10 +71,6 @@
   background-color: #6f42c1 !important
 }
 
-.filter-list{
-  
-}
-
 .filter-list li .btn:hover{
   font-weight: 500;
 
@@ -82,26 +78,6 @@
 
 .active-filter{
   background-color: #cdc8c8;
-}
-
-.tooltip {
-  position: relative;
-}
-
-.tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
 }
 
 .todo-text {

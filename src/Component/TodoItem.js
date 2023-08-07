@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ModalConfirm from './ModalConfirm';
 
-export default function TodoItem({ todo, index, deleteTodo, toggleCompleted, handleEditTodo }) {
+export default function TodoItem({ todo, index, handleDeleteTodo, handleToggleCompleted, handleEditTodo }) {
   const [editing, setEditing] = useState(false);
   const [editedText, setEditedText] = useState(todo.text);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -9,7 +9,7 @@ export default function TodoItem({ todo, index, deleteTodo, toggleCompleted, han
 
 
   const handleToggle = () => {
-    toggleCompleted(index);
+    handleToggleCompleted(index);
   };
 
   const handleEdit = () => {
@@ -43,7 +43,7 @@ export default function TodoItem({ todo, index, deleteTodo, toggleCompleted, han
 
   const handleDeleteConfirmed = () => {
     setShowDeleteModal(false);
-    deleteTodo(index);
+    handleDeleteTodo(index);
   };
 
   const handleHover = () => {

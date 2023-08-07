@@ -1,22 +1,22 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-export default function TodoList({ todos, deleteTodo, toggleCompleted, handleEditTodo, currentPage, todosPerPage,handlePageChange,initialTodos }) {
+export default function TodoList({ todos, handleDeleteTodo, handleToggleCompleted, handleEditTodo, currentPage, todosPerPage,handlePageChange,initialTodos }) {
   const indexOfFirstTodo = (currentPage - 1) * todosPerPage;
 
   return (
-    <div className='listtask'>
+    <div>
       {todos.length === 0 ? (
         <p className='text-center my-4 fw-bold'>Không có công việc nào.</p>
       ) : (
-        <ul className='tasklist'>
+        <ul className='task-list'>
           {todos.map((todo, index) => (
             <TodoItem
               key={index}
               todo={todo}
               index={index + indexOfFirstTodo}
-              deleteTodo={deleteTodo}
-              toggleCompleted={toggleCompleted}
+              handleDeleteTodo={handleDeleteTodo}
+              handleToggleCompleted={handleToggleCompleted}
               handleEditTodo={handleEditTodo}
             />
           ))}
