@@ -10,6 +10,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [lengthPage, setLengthPage] = useState(1);
   const todosPerPage = 5;
   const storedTodos = localStorage.getItem('todos');
 
@@ -25,18 +26,33 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const handleAddTodo = (todo) => {
-    setInitialTodos([...initialTodos, todo]);
-    setTodos([...todos, todo]);
-  };
 
   useEffect(() => {
     // Nếu không có todo nào trong danh sách, set lại currentPage về 1
     if (todos.length % 5 === 0) {
       setCurrentPage(todos.length/5);
     }
+    // else {setCurrentPage(Math.ceil(todos.length/5))}
+    else {setCurrentPage(1)}
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
+
+  useEffect(() => {
+    setLengthPage(Math.ceil(initialTodos.length / todosPerPage));
+    setCurrentPage(1);
+  }, [initialTodos.length, todosPerPage]);
+
+  
+  
+  const handleAddTodo = (todo) => {
+    setInitialTodos([...initialTodos, todo]);
+    setTodos([...todos, todo]);
+    if (todos.length + 1 > currentPage * todosPerPage) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+    
+  };
 
   const handleDeleteTodo = (index) => {
     const newTodos = [...todos];
@@ -79,6 +95,7 @@ function App() {
     }
     setCurrentPage(1); // Reset trang về trang đầu tiên sau khi tìm kiếm
   };
+  
 
   const handleEditTodo = (index, editedTodo) => {
     const newTodos = [...todos];
@@ -88,41 +105,43 @@ function App() {
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber >= 1 && pageNumber <= Math.ceil(initialTodos.length / todosPerPage)) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   // Tính chỉ số todo bắt đầu và kết thúc của trang hiện tại
   const indexOfLastTodo = currentPage * todosPerPage;
-  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const indexOfFirstTodo = todos.length === 0 ? 0 : (currentPage - 1) * todosPerPage;
   const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
   const handleFilter = (filterType) => {
     switch (filterType) {
       case 'completed':
         const completedTodos = initialTodos.filter((todo) => todo.completed);
-        if (completedTodos.length === 0) {
-          setTodos([]);
-        } else {
-          setTodos(completedTodos);
-        }
+        setTodos(completedTodos);
+        setCurrentPage(1); // Reset lại trang về trang đầu tiên khi lọc
+        setLengthPage(Math.ceil(completedTodos.length / todosPerPage));
         break;
-
+  
       case 'pending':
         const pendingTodos = initialTodos.filter((todo) => !todo.completed);
-        if (pendingTodos.length === 0) {
-          setTodos([]);
-        } else {
-          setTodos(pendingTodos);
-        }
+        setTodos(pendingTodos);
+        setCurrentPage(1); // Reset lại trang về trang đầu tiên khi lọc
+        setLengthPage(Math.ceil(pendingTodos.length / todosPerPage));
         break;
-        
+  
       case 'all':
         setTodos([...initialTodos]);
+        setCurrentPage(1); // Reset lại trang về trang đầu tiên khi lọc
+        setLengthPage(Math.ceil(initialTodos.length / todosPerPage));
         break;
+  
       default:
         break;
     }
   };
+  
   
 
   return (
@@ -144,6 +163,7 @@ function App() {
           todosPerPage={todosPerPage} // Truyền todosPerPage vào TodoList
           handlePageChange={handlePageChange}
           initialTodos={initialTodos}
+          lengthPage={lengthPage}
         />
 
         <TodoFilter 

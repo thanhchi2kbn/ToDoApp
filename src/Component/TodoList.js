@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-export default function TodoList({ todos, handleDeleteTodo, handleToggleCompleted, handleEditTodo, currentPage, todosPerPage,handlePageChange,initialTodos }) {
+export default function TodoList({ todos, handleDeleteTodo, handleToggleCompleted, handleEditTodo, currentPage, todosPerPage,handlePageChange,initialTodos,lengthPage }) {
   const indexOfFirstTodo = (currentPage - 1) * todosPerPage;
 
   return (
@@ -25,7 +25,7 @@ export default function TodoList({ todos, handleDeleteTodo, handleToggleComplete
 
               {/* Phân trang */}
               <div className='pagination d-flex justify-content-center mt-3 mb-3'>
-          {Array.from({ length: Math.ceil(initialTodos.length / todosPerPage) }, (_, index) => (
+          {Array.from({ length: lengthPage  }, (_, index) => (
             <button
               key={index}
               className={`btn btn-secondary me-1 ${currentPage === index + 1 ? 'active' : ''}`}
