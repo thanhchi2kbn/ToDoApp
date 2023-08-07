@@ -15,32 +15,23 @@ function App() {
   const storedTodos = localStorage.getItem('todos');
 
   useEffect(() => {
+    setCurrentPage(1)    
     if (storedTodos) {
       setInitialTodos(JSON.parse(storedTodos));
       setTodos(JSON.parse(storedTodos));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
-
-  useEffect(() => {
-    // Nếu không có todo nào trong danh sách, set lại currentPage về 1
     if (todos.length % 5 === 0) {
       setCurrentPage(todos.length/5);
     }
-    // else {setCurrentPage(Math.ceil(todos.length/5))}
-    else {setCurrentPage(1)}
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
 
   useEffect(() => {
     setLengthPage(Math.ceil(initialTodos.length / todosPerPage));
-    setCurrentPage(1);
   }, [initialTodos.length, todosPerPage]);
 
   
